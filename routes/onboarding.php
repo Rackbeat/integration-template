@@ -49,6 +49,7 @@ Route::get( '/authorize/{integrationToken}', function ( \Illuminate\Http\Request
 	$connection = \App\Connection::updateOrCreate( [
 		'rackbeat_user_account_id' => $rackbeatSelf->user_account->id
 	], [
+		'is_active'      => 1,
 		'rackbeat_token' => $accessToken,
 		// todo add integration specific keys to the connection (to the connections table)
 		'internal_token' => str_random( 255 )
