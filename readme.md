@@ -16,6 +16,8 @@ $ php artisan migrate
 
 Check all `// todo` and `// consider` comments.
 
-## 5. You should be good to go with the template.
+## 5. Go to `console/Kernel.php` and `console/Commands/*` and setup sync jobs.
+
+## 6. You should be good to go with the template.
 
 Now, create your own logic etc.   
