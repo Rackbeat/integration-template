@@ -1,0 +1,39 @@
+<?php namespace App\Rackbeat;
+
+use GuzzleHttp\Client as curl;
+
+class Integration
+{
+	protected $curl;
+
+	public function __construct( $token = '' ) {
+		$this->curl = new curl( [
+			'base_uri' => config( 'rackbeat.integration_endpoint' ),
+			'headers'  => [
+				'Accept'       => 'application/json',
+				'Content-Type' => 'application/json',
+				'User-Agent'   => 'Internal Rackbeat e-conomic integration'
+			]
+		] );
+	}
+
+	public static function accept( $token ) {
+		try {
+			$request = ( new self )->curl->post( "accept/{$token}" );
+
+			return json_decode( $request->getBody()->getContents() );
+		} catch ( \Exception $exception ) {
+			dd( $exception );
+		}
+	}
+
+	public static function cancel( $token ) {
+		try {
+			$request = ( new self )->curl->post( "cancel/{$token}" );
+
+			return json_decode( $request->getBody()->getContents() );
+		} catch ( \Exception $exception ) {
+			dd( $exception );
+		}
+	}
+}
