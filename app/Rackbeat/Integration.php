@@ -12,7 +12,7 @@ class Integration
 			'headers'  => [
 				'Accept'       => 'application/json',
 				'Content-Type' => 'application/json',
-				'User-Agent'   => 'Internal Rackbeat e-conomic integration'
+				'User-Agent'   => 'Internal Rackbeat integration'
 			]
 		] );
 	}
