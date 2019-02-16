@@ -16,7 +16,7 @@ class Client
 			'headers'  => [
 				'Accept'        => 'application/json',
 				'Content-Type'  => 'application/json',
-				'User-Agent'    => 'Internal Rackbeat e-conomic integration',
+				'User-Agent'    => 'Internal ' . config('app.name') . ' e-conomic integration',
 				'Authorization' => 'Bearer ' . $token
 			]
 		] );
