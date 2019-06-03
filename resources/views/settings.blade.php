@@ -77,7 +77,7 @@
 <script>
 	// This below will update the iframe to fit the full height
 	function send_height_to_parent_function() {
-		var height = document.getElementsByTagName("html")[0].offsetHeight;
+		var height = document.getElementsByTagName("body")[0].offsetHeight;
 		parent.postMessage({"height": height}, "*");
 	}
 
@@ -95,10 +95,23 @@
 
 		send_height_to_parent_function();
 
-		var observer = new MutationObserver(send_height_to_parent_function);           // whenever DOM changes PT1
-		var config = {attributes: true, childList: true, characterData: true, subtree: true}; // PT2
-		observer.observe(window.document, config);                                            // PT3
+		var observer = new MutationObserver(send_height_to_parent_function);         
+		var config = {attributes: true, childList: true, characterData: true, subtree: true}; 
+		observer.observe(window.document, config);
 	});
+	
+	// This will add a slight margin to the container if not in an iframe
+	function inIframe() {
+		try {
+			return window.self !== window.top;
+		} catch (e) {
+			return true;
+		}
+	}
+
+	if (!inIframe()) {
+		document.querySelector(".container").style.setProperty("margin-top", "16px");
+	}
 </script>
 </body>
 </html>
