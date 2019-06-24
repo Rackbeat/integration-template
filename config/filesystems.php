@@ -43,6 +43,22 @@ return [
 
     'disks' => [
 
+        'local-ftp' => [
+            'driver' => 'ftp',
+            'host' => 'localhost',
+            'username' => 'root',
+            'password' => 'root',
+            'port' => 21
+        ],
+
+        'primecargo' => [
+            'driver' => env('PRIMECARGO_DRIVER', 'ftp'),
+            'host' => env('PRIMECARGO_HOST'),
+            'username' => env('PRIMECARGO_USERMAME'),
+            'password' => env('PRIMECARGO_PASSWORD'),
+            'port' => env('PRIMECARGO_PORT', 21)
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

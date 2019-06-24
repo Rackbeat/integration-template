@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Connection;
 use App\Jobs\ExampleSyncJob;
+use App\Jobs\SyncAllPurchaseOrders;
 use Illuminate\Console\Command;
 
 class SyncAllConnections extends Command
@@ -19,7 +20,7 @@ class SyncAllConnections extends Command
 	 */
 	public function handle() {
 		foreach ( Connection::active()->get() as $connection ) {
-			dispatch( new ExampleSyncJob( $connection ) );
+			dispatch( new SyncAllPurchaseOrders( $connection ) );
 		}
 	}
 }
