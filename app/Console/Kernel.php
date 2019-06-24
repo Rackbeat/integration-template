@@ -2,7 +2,6 @@
 
 namespace App\Console;
 
-use App\Console\Commands\SelfDestruct;
 use App\Console\Commands\SyncAllConnections;
 use App\Console\Commands\SyncSingleConnection;
 use Illuminate\Console\Scheduling\Schedule;
@@ -18,7 +17,6 @@ class Kernel extends ConsoleKernel
 	protected $commands = [
 		SyncAllConnections::class,
 		SyncSingleConnection::class,
-
 	];
 
 	/**

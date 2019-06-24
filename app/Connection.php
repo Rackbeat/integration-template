@@ -58,8 +58,4 @@ class Connection extends Model
 	public function scopeActive( Builder $builder ) {
 		return $builder->whereIsActive( 1 );
 	}
-
-	public function purchaseOrders () {
-	    return $this->hasMany(PurchaseOrder::class);
-    }
 }
