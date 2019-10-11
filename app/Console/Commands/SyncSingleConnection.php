@@ -18,7 +18,8 @@ class SyncSingleConnection extends Command
 	 * @return mixed
 	 */
 	public function handle() {
+		/** @var Connection $connection */
 		$connection = Connection::where( 'id', $this->option( 'connection' ) )->firstOrFail();
-		dispatch( new ExampleSyncJob( $connection ) );
+		$connection->startSync();
 	}
 }

@@ -18,8 +18,9 @@ class SyncAllConnections extends Command
 	 * @return mixed
 	 */
 	public function handle() {
+		/** @var Connection $connection */
 		foreach ( Connection::active()->get() as $connection ) {
-			dispatch( new ExampleSyncJob( $connection ) );
+			$connection->startSync();
 		}
 	}
 }

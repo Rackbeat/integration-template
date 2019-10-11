@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Economic\Soap;
+use App\Jobs\ExampleSyncJob;
 use App\Jobs\SyncCustomers;
 use App\Jobs\SyncPaymentTerms;
 use App\Jobs\SyncProducts;
@@ -25,6 +26,10 @@ class Connection extends Model
 
 	public function getRouteKeyName() {
 		return 'internal_token';
+	}
+
+	public function startSync() {
+		dispatch( new ExampleSyncJob( $this ) );
 	}
 
 	public function getSetting( $identifier, $default = null ) {
