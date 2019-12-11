@@ -27,7 +27,7 @@ class Client
 	}
 
 	public function refreshToken() {
-		return json_decode( $this->curl->post( '/tokens/replace-current' )->getBody()->getContents() );
+		return json_decode( $this->curl->post( 'tokens/replace-current' )->getBody()->getContents() );
 	}
 
 	public function getSetting( $identifier, $default = null ) {
