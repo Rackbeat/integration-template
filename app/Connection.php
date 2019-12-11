@@ -13,7 +13,6 @@ use App\Rackbeat\Client;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 use LasseRafn\Economic\Economic;
 
 class Connection extends Model
@@ -21,7 +20,7 @@ class Connection extends Model
 	protected $guarded = [];
 
 	protected $casts = [
-		'is_active'          => 'boolean',
+		'is_active' => 'boolean',
 	];
 
 	public function getRouteKeyName() {
@@ -30,6 +29,16 @@ class Connection extends Model
 
 	public function startSync() {
 		dispatch( new ExampleSyncJob( $this ) );
+	}
+
+	public function rackbeat() {
+		return new Client( $this->rackbeat_token );
+	}
+
+	public function refreshRackbeatToken() {
+		$tokenResponse = $this->rackbeat()->refreshToken();
+
+		$this->update( [ 'rackbeat_token' => $tokenResponse->token ] );
 	}
 
 	public function getSetting( $identifier, $default = null ) {
