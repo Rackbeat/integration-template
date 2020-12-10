@@ -18,6 +18,12 @@ Check all `// todo` and `// consider` comments.
 
 ## 5. Go to `console/Kernel.php` and `console/Commands/*` and setup sync jobs.
 
-## 6. You should be good to go with the template.
+## 6. Update these 3 .env variables:
+```
+RACKBEAT_DOMAIN=                Should be your local rackbeat host + / (eg: localhost/)
+RACKBEAT_ENDPOINT=              Should be your local rackbeat host + /api/ (eg: localhost/api/)
+RACKBEAT_INTEGRATION_ENDPOINT=  Should be your local rackbeat host + /integration/ (eg: localhost/integration/)
+```
+## 7. You should be good to go with the template.
 
 Now, create your own logic etc.   
