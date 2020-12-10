@@ -4,7 +4,7 @@
 
 ## 2. Go to `database/migrations/2018_02_18_130938_create_connections_table.php`
 
-Add columns used for the integration (example: e-conomic agreement column)
+Add columns necessary for the integration (example: e-conomic agreement, Ordrestyring API token or whatever)
 
 ## 3. Run migrations
 

@@ -23,7 +23,6 @@ Route::get( '/begin', function ( \Illuminate\Http\Request $request ) {
 Route::get( '/authorize/{integrationToken}', function ( \Illuminate\Http\Request $request, $integrationToken ) {
 	$integrationWasSetupCorrectly = true; // todo check if the integration (oauth?) response was valid.
 
-
 	if ( ! $integrationWasSetupCorrectly ) {
 		// If integration was not setup or oauth denied, we will cancel the RB request
 		\App\Rackbeat\Integration::cancel( $integrationToken );

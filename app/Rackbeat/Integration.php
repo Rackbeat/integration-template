@@ -4,36 +4,31 @@ use GuzzleHttp\Client as curl;
 
 class Integration
 {
-	protected $curl;
+    protected $curl;
 
-	public function __construct( $token = '' ) {
-		$this->curl = new curl( [
-			'base_uri' => config( 'rackbeat.integration_endpoint' ),
-			'headers'  => [
-				'Accept'       => 'application/json',
-				'Content-Type' => 'application/json',
-				'User-Agent'   => 'Internal Rackbeat integration'
-			]
-		] );
-	}
+    public function __construct( $token = '' )
+    {
+        $this->curl = new curl( [
+            'base_uri' => config( 'rackbeat.integration_endpoint' ),
+            'headers'  => [
+                'Accept'       => 'application/json',
+                'Content-Type' => 'application/json',
+                'User-Agent'   => 'Internal Rackbeat integration'
+            ]
+        ] );
+    }
 
-	public static function accept( $token ) {
-		try {
-			$request = ( new self )->curl->post( "accept/{$token}" );
+    public static function accept( $token )
+    {
+        $request = ( new self )->curl->post( "accept/{$token}" );
 
-			return json_decode( $request->getBody()->getContents() );
-		} catch ( \Exception $exception ) {
-			dd( $exception );
-		}
-	}
+        return json_decode( $request->getBody()->getContents() );
+    }
 
-	public static function cancel( $token ) {
-		try {
-			$request = ( new self )->curl->post( "cancel/{$token}" );
+    public static function cancel( $token )
+    {
+        $request = ( new self )->curl->post( "cancel/{$token}" );
 
-			return json_decode( $request->getBody()->getContents() );
-		} catch ( \Exception $exception ) {
-			dd( $exception );
-		}
-	}
+        return json_decode( $request->getBody()->getContents() );
+    }
 }
