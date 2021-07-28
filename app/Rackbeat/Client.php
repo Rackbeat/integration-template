@@ -17,7 +17,7 @@ class Client
             'headers'  => [
                 'Accept'        => 'application/json',
                 'Content-Type'  => 'application/json',
-                'User-Agent'    => 'Internal ' . config( 'app.name' ) . ' e-conomic integration',
+                'User-Agent'    => 'Internal ' . config( 'app.name' ) . ' integration',
                 'Authorization' => 'Bearer ' . $token
             ]
         ] );

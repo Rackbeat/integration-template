@@ -13,7 +13,7 @@ class Integration
             'headers'  => [
                 'Accept'       => 'application/json',
                 'Content-Type' => 'application/json',
-                'User-Agent'   => 'Internal Rackbeat integration'
+                'User-Agent'    => 'Internal ' . config( 'app.name' ) . ' integration',
             ]
         ] );
     }
