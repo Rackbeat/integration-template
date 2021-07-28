@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Connection;
+use App\Rackbeat\Client;
+use App\Rackbeat\Integration;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class OnboardingController extends Controller
 {
-    public function begin(Request $request) {
+    public function begin( Request $request )
+    {
         // 'token' is a integration request token from RB.
 
         if ( ! $request->has( 'token' ) ) {
@@ -20,19 +25,20 @@ class OnboardingController extends Controller
         );
     }
 
-    public function authorizeIntegration(Request $request, $integrationToken) {
+    public function authorizeIntegration( Request $request, $integrationToken )
+    {
         $integrationWasSetupCorrectly = true; // todo check if the integration (oauth?) response was valid.
 
         if ( ! $integrationWasSetupCorrectly ) {
             // If integration was not setup or oauth denied, we will cancel the RB request
-            \App\Rackbeat\Integration::cancel( $integrationToken );
+            Integration::cancel( $integrationToken );
 
             return response( 'Something went wrong' );
         }
 
         // We will now approve the integration request from RB and get our permanent API token
         try {
-            $accessTokenRequest = \App\Rackbeat\Integration::accept( $integrationToken );
+            $accessTokenRequest = Integration::accept( $integrationToken );
             $accessToken        = $accessTokenRequest->access_token;
             $appSlug            = $accessTokenRequest->app_slug;
             $redirectTo         = $accessTokenRequest->redirect_to ?? null;
@@ -41,17 +47,17 @@ class OnboardingController extends Controller
         }
 
         // Update an existing, or create a new connection.
-        $client = \App\Rackbeat\Client::init( $accessToken );
+        $client = Client::init( $accessToken );
 
         $rackbeatSelf = $client->self();
 
-        $connection = \App\Connection::updateOrCreate( [
+        $connection = Connection::updateOrCreate( [
             'rackbeat_user_account_id' => $rackbeatSelf->user_account->id
         ], [
             'is_active'      => 1,
             'rackbeat_token' => $accessToken,
             // todo add integration specific keys to the connection (to the connections table)
-            'internal_token' => \Illuminate\Support\Str::random( 255 )
+            'internal_token' => Str::random( 255 )
         ] );
 
         // Consider: do we need a settings page inside Rackbeat? Is an iframe. See resources/views/settings.blade.php
